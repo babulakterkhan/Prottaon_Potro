@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>BCTI - কালারফুল হেডার এডিশন</title>
+    <style>
+        :root { --primary: #004d40; --accent: #00695c; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #eaeff2; margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* প্যানেল স্টাইল */
+        .input-panel { width: 380px; background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,0.1); overflow-y: auto; border-right: 3px solid var(--primary); display: flex; flex-direction: column; }
+        .panel-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .panel-header h2 { margin: 0; font-size: 18px; }
+        .panel-section { padding: 20px; flex: 1; }
+        .section-title { color: var(--primary); font-size: 16px; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 15px; font-weight: bold; }
+
+        /* সেটিংস প্যানেল */
+        #masterSettings { display: none; background: #f0f4f3; border-bottom: 5px solid #ddd; padding: 20px; border-left: 5px solid var(--primary); }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #555; }
+        .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
+
+        .backup-tools { display: flex; gap: 5px; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 10px; }
+        .btn-sm { padding: 5px 10px; font-size: 11px; cursor: pointer; border-radius: 3px; border: 1px solid #999; background: #f9f9f9; }
+
+        /* প্রিভিউ এরিয়া */
+        .preview-panel { flex: 1; background: #525659; display: flex; justify-content: center; align-items: flex-start; padding: 30px; overflow-y: auto; }
+        .certificate { width: 210mm; min-height: 297mm; background: white; padding: 100px 75px 50px 75px; box-shadow: 0 0 20px rgba(0,0,0,0.4); box-sizing: border-box; position: relative; }
+        
+        .pad-mode-on .header-area { display: none !important; }
+        .pad-mode-on { padding-top: 250px !important; }
+
+        /* হেডার কালার ও ডিজাইন */
+        .header-area { display: grid; grid-template-columns: 100px 1fr 100px; align-items: center; border-bottom: 3px solid var(--primary); margin-bottom: 45px; padding-bottom: 20px; }
+        .logo-box { width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
+        .logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .header-text { text-align: center; }
+        .header-text h1 { margin: 0; font-size: 28px; font-weight: bold; color: var(--primary); text-transform: uppercase; }
+        .estd-text { font-size: 14px; margin: 2px 0; color: #444; font-weight: bold; }
+        .header-text p { margin: 5px 0 0; font-size: 15px; color: #333; }
+        .contact-info { font-size: 13px; margin-top: 6px; color: var(--accent); font-weight: 500; }
+
+        /* টাইটেল ডিজাইন */
+        .title { text-align: center; margin: 40px 0; }
+        .title span { 
+            font-size: 26px; font-weight: bold; color: #fff; 
+            background: var(--primary); padding: 5px 25px; border-radius: 50px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .content { font-size: 20px; line-height: 2.2; text-align: justify; color: #000; }
+        .data-text { font-weight: bold; color: #000; border-bottom: 1px dotted #666; }
+
+        .footer { margin-top: 100px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .sign-box { text-align: center; width: 220px; border-top: 2px solid var(--primary); padding-top: 5px; font-weight: bold; font-size: 18px; color: var(--primary); }
+
+        /* বাটন */
+        .btn { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; width: 100%; }
+        .btn-settings { background: #555; padding: 6px 12px; font-size: 12px; width: auto; }
+        .btn-print { background: var(--primary); margin-top: 10px; font-size: 16px; transition: 0.3s; }
+        .btn-print:hover { background: #00332a; }
+
+        @media print {
+            .input-panel { display: none !important; }
+            .preview-panel { padding: 0; background: white; }
+            .certificate { box-shadow: none; border: none; width: 210mm; height: 297mm; margin: 0; }
+            /* প্রিন্টে কালার ধরে রাখার জন্য */
+            .title span { background: var(--primary) !important; color: white !important; -webkit-print-color-adjust: exact; }
+            .header-text h1 { color: var(--primary) !important; -webkit-print-color-adjust: exact; }
+            @page { size: portrait; margin: 0; }
+        }
+    </style>
+</head>
+<body onload="autoLoad()">
+
+<div class="input-panel">
+    <div class="panel-header">
+        <h2>BCTI প্যানেল</h2>
+        <button class="btn btn-settings" onclick="checkPass()">⚙️ সেটিংস</button>
+    </div>
+
+    <div id="masterSettings">
+        <div class="section-title">⚙️ মাস্টার সেটিংস</div>
+        <div class="input-group"><label>🔒 সেটিং পাসওয়ার্ড</label><input type="password" id="setPass" onblur="save()"></div>
+        <hr>
+        <div class="input-group"><label>লোগো আপলোড</label><input type="file" accept="image/*" onchange="updateLogo(this)"></div>
+        <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" placeholder="BCTI আইটি ইনস্টিটিউট" oninput="sync()"></div>
+        <div class="input-group"><label>স্থাপিত</label><input type="text" id="inEstd" placeholder="স্থাপিত: ২০২৪ ইং" oninput="sync()"></div>
+        <div class="input-group"><label>ঠিকানা ও মোবাইল</label><textarea id="inAddr" rows="1" oninput="sync()"></textarea></div>
+        
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>ইমেইল</label><input type="text" id="inEmail" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>ওয়েবসাইট</label><input type="text" id="inWeb" oninput="sync()"></div>
+        </div>
+
+        <div class="input-group"><label>স্বাক্ষরকারীর পদবী</label><input type="text" id="inSign" oninput="sync()"></div>
+        <div class="input-group"><label>উপজেলা লিস্ট</label><input type="text" id="setUpz" onblur="updateMasterLists()"></div>
+        <div class="input-group"><label>জেলা লিস্ট</label><input type="text" id="setDist" onblur="updateMasterLists()"></div>
+        <div class="input-group"><label>সেশন লিস্ট</label><input type="text" id="setSession" onblur="updateMasterLists()"></div>
+        <div class="input-group"><label>বিভাগ লিস্ট</label><input type="text" id="setDept" onblur="updateMasterLists()"></div>
+        
+        <div class="backup-tools">
+            <button class="btn-sm" onclick="exportJSON()">📥 ব্যাকআপ</button>
+            <button class="btn-sm" onclick="document.getElementById('importFile').click()">📤 রিস্টোর</button>
+            <input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(this)">
+        </div>
+        <button class="btn" style="background:#777; font-size:12px; margin-top:10px;" onclick="toggleSettings()">বন্ধ করুন</button>
+    </div>
+
+    <div class="panel-section">
+        <div class="section-title">👤 শিক্ষার্থীর তথ্য</div>
+        <div class="input-group"><label>শিক্ষার্থীর নাম</label><input type="text" id="inName" oninput="sync()"></div>
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>পিতার নাম</label><input type="text" id="inFather" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>মাতার নাম</label><input type="text" id="inMother" oninput="sync()"></div>
+        </div>
+        <div class="input-group"><label>গ্রাম/ঠিকানা</label><input type="text" id="inVill" oninput="sync()"></div>
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>উপজেলা</label><select id="inUpz" onchange="sync()"></select></div>
+            <div class="input-group" style="flex:1;"><label>জেলা</label><select id="inDist" onchange="sync()"></select></div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>সেশন</label><select id="inSession" onchange="sync()"></select></div>
+            <div class="input-group" style="flex:1;"><label>বিভাগ</label><select id="inDept" onchange="sync()"></select></div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>রোল</label><input type="text" id="inRoll" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>জন্ম তারিখ</label><input type="text" id="inDOB" oninput="sync()"></div>
+        </div>
+        <div style="margin: 15px 0;"><label style="cursor:pointer; font-weight: bold; color: #d32f2f;"><input type="checkbox" id="padMode" onchange="sync()"> প্যাডে প্রিন্ট (হেডার লুকান)</label></div>
+        <button class="btn btn-print" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
+        <button class="btn" style="background:#eee; color:#666; font-size:12px; margin-top:10px;" onclick="resetAll()">🧹 ডাটা মুছুন</button>
+    </div>
+</div>
+
+<div class="preview-panel">
+    <div id="certArea" class="certificate">
+        <div class="header-area">
+            <div class="logo-box"><img id="certLogo" src="https://via.placeholder.com/90?text=LOGO"></div>
+            <div class="header-text">
+                <h1 id="outShop">প্রতিষ্ঠানের নাম</h1>
+                <small id="outEstd" class="estd-text"></small>
+                <p id="outAddr">ঠিকানা ও মোবাইল নম্বর</p>
+                <div class="contact-info">
+                    <span id="outEmail"></span> <span id="outWeb" style="margin-left: 10px;"></span>
+                </div>
+            </div>
+            <div style="width:90px;"></div>
+        </div>
+        <div class="title"><span>প্রত্যয়ন পত্র</span></div>
+        <div class="content">
+            এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের একাদশ শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি। <br><br>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।
+        </div>
+        <div class="footer">
+            <div>তারিখ: ১৮/০১/২০২৬</div>
+            <div id="outSign" class="sign-box">অধ্যক্ষ/পরিচালক</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const KEY = 'bcti_secure_color_v13';
+    let savedPass = "";
+
+    function toggleSettings() { 
+        const ms = document.getElementById('masterSettings'); 
+        ms.style.display = (ms.style.display === 'block') ? 'none' : 'block'; 
+    }
+
+    function checkPass() {
+        if (!savedPass) { toggleSettings(); return; }
+        const input = prompt("সেটিংস পাসওয়ার্ড দিন:");
+        if (input === savedPass) toggleSettings();
+        else if (input !== null) alert("ভুল পাসওয়ার্ড!");
+    }
+
+    function updateMasterLists() {
+        ['Upz', 'Dist', 'Session', 'Dept'].forEach(type => {
+            const listStr = document.getElementById('set' + type).value;
+            const selectEl = document.getElementById('in' + type);
+            if(listStr) selectEl.innerHTML = listStr.split(',').map(i => `<option value="${i.trim()}">${i.trim()}</option>`).join('');
+        });
+        sync();
+    }
+
+    function sync() {
+        ['Shop', 'Estd', 'Addr', 'Email', 'Web', 'Sign', 'Name', 'Father', 'Mother', 'Vill', 'Upz', 'Dist', 'Session', 'Dept', 'Roll', 'DOB'].forEach(id => {
+            const val = document.getElementById('in' + id).value;
+            const out = document.getElementById('out' + id);
+            if(id === 'Sign') out.innerText = val || "অধ্যক্ষ/পরিচালক";
+            else if(id === 'Estd') out.innerText = val || "";
+            else if(id === 'Email') out.innerText = val ? "Email: " + val : "";
+            else if(id === 'Web') out.innerText = val ? "Web: " + val : "";
+            else out.innerText = val || "..............";
+        });
+        document.getElementById('certArea').classList.toggle('pad-mode-on', document.getElementById('padMode').checked);
+        save();
+    }
+
+    function updateLogo(input) {
+        if (input.files && input.files[0]) {
+            const r = new FileReader(); r.onload = (e) => { document.getElementById('certLogo').src = e.target.result; save(); }; r.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function save() {
+        const d = {};
+        ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Roll','DOB','setUpz','setDist','setSession','setDept'].forEach(f => {
+            const el = document.getElementById(f.startsWith('set') ? f : 'in'+f); if(el) d[f] = el.value;
+        });
+        d.logo = document.getElementById('certLogo').src; 
+        d.pad = document.getElementById('padMode').checked;
+        d.pass = document.getElementById('setPass').value;
+        savedPass = d.pass;
+        localStorage.setItem(KEY, JSON.stringify(d));
+    }
+
+    function autoLoad() {
+        const s = localStorage.getItem(KEY);
+        if(s) {
+            const d = JSON.parse(s);
+            savedPass = d.pass || "";
+            document.getElementById('setPass').value = savedPass;
+            ['setUpz','setDist','setSession','setDept'].forEach(k => { if(d[k]) document.getElementById(k).value = d[k]; });
+            updateMasterLists();
+            Object.keys(d).forEach(k => {
+                if(k === 'logo') document.getElementById('certLogo').src = d[k];
+                else if(k === 'pad') document.getElementById('padMode').checked = d[k];
+                else if(document.getElementById('in'+k)) document.getElementById('in'+k).value = d[k];
+            });
+            sync();
+        } else {
+            document.getElementById('setUpz').value = "শাহজাদপুর, উল্লাপাড়া";
+            document.getElementById('setDist').value = "সিরাজগঞ্জ, পাবনা";
+            document.getElementById('setSession').value = "২০২৪-২৫, ২০২৫-২৬";
+            document.getElementById('setDept').value = "মানবিক, বিজ্ঞান";
+            updateMasterLists();
+        }
+    }
+
+    function exportJSON() {
+        const data = localStorage.getItem(KEY);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([data], {type: "application/json"}));
+        a.download = `BCTI_Backup.json`; a.click();
+    }
+
+    function importJSON(input) {
+        const reader = new FileReader();
+        reader.onload = (e) => { localStorage.setItem(KEY, e.target.result); location.reload(); };
+        reader.readAsText(input.files[0]);
+    }
+
+    function resetAll() { if(confirm("সব ডাটা মুছবেন?")) { localStorage.clear(); location.reload(); } }
+</script>
+</body>
+</html>
