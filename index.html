@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>BCTI - বাংলা তারিখ এডিশন</title>
+    <title>BCTI - অল ফিক্সড এডিশন</title>
     <style>
         :root { --primary: #004d40; --accent: #00695c; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #eaeff2; margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
@@ -41,7 +41,8 @@
         .title { text-align: center; margin: 40px 0; }
         .title span { font-size: 26px; font-weight: bold; color: #fff; background: var(--primary); padding: 5px 35px; border-radius: 50px; }
 
-        .content { font-size: 20px; line-height: 2.2; text-align: justify; color: #000; }
+        .content { font-size: 20px; text-align: justify; color: #000; }
+        .content p { margin: 0 0 15px 0; } 
         .data-text { font-weight: normal; color: #000; border-bottom: 1px dotted #999; }
 
         .footer { margin-top: 80px; display: flex; justify-content: space-between; align-items: flex-end; }
@@ -76,17 +77,20 @@
         <hr>
         <div class="input-group"><label>লোগো আপলোড</label><input type="file" accept="image/*" onchange="updateLogo(this)"></div>
         <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()"></div>
-        <div class="input-group"><label>স্থাপিত (যেমন: স্থাপিত: ২০০৫ ইং)</label><input type="text" id="inEstd" oninput="sync()"></div>
+        <div class="input-group"><label>স্থাপিত</label><input type="text" id="inEstd" oninput="sync()"></div>
         <div class="input-group"><label>ঠিকানা ও মোবাইল</label><textarea id="inAddr" rows="1" oninput="sync()"></textarea></div>
         <div style="display: flex; gap: 8px;">
             <div class="input-group" style="flex:1;"><label>ইমেইল</label><input type="text" id="inEmail" oninput="sync()"></div>
             <div class="input-group" style="flex:1;"><label>ওয়েবসাইট</label><input type="text" id="inWeb" oninput="sync()"></div>
         </div>
 
-        <div class="section-title">📏 ফন্ট ও মার্জিন কন্ট্রোল</div>
+        <div class="section-title">📏 ফন্ট, গ্যাপ ও ইনডেন্ট</div>
         <div style="display: flex; gap: 8px;">
             <div class="input-group" style="flex:1;"><label>মূল ফন্ট</label><input type="number" id="setFontSize" value="20" oninput="sync()"></div>
             <div class="input-group" style="flex:1;"><label>লাইন গ্যাপ</label><input type="number" step="0.1" id="setLineHeight" value="2.2" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>প্যারা ইনডেন্ট</label><input type="number" id="setIndent" value="0" oninput="sync()"></div>
+        </div>
+        <div style="display: flex; gap: 8px;">
             <div class="input-group" style="flex:1;"><label>স্বাক্ষর ফন্ট</label><input type="number" id="setSignSize" value="18" oninput="sync()"></div>
         </div>
         <div style="display: flex; gap: 5px;">
@@ -153,7 +157,9 @@
         </div>
         <div class="title"><span>প্রত্যয়ন পত্র</span></div>
         <div id="mainContent" class="content">
-            এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের একাদশ শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি। <br><br>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।
+            <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের একাদশ শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
+            
+            <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
         </div>
         <div class="footer">
             <div id="outDate">তারিখ: </div>
@@ -163,24 +169,20 @@
 </div>
 
 <script>
-    const KEY = 'bcti_bangla_date_v28';
+    const KEY = 'bcti_indent_fixed_v30';
     let savedPass = "";
 
-    // ইংরেজি সংখ্যা থেকে বাংলা সংখ্যায় রূপান্তর
     function toBengaliNumber(n) {
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
         return n.toString().split('').map(digit => banglaDigits[digit] || digit).join('');
     }
 
-    // আজকের তারিখ বাংলা ফরম্যাটে সেট করা
     function setTodayDateBengali() {
         const today = new Date();
         const d = String(today.getDate()).padStart(2, '0');
         const m = String(today.getMonth() + 1).padStart(2, '0');
         const y = today.getFullYear();
-        
-        const dateStr = `${toBengaliNumber(d)}/${toBengaliNumber(m)}/${toBengaliNumber(y)} খ্রি.`;
-        document.getElementById('outDate').innerText = `তারিখ: ${dateStr}`;
+        document.getElementById('outDate').innerText = `তারিখ: ${toBengaliNumber(d)}/${toBengaliNumber(m)}/${toBengaliNumber(y)} খ্রি.`;
     }
 
     function toggleSettings() { 
@@ -219,8 +221,17 @@
             }
         });
 
-        document.getElementById('mainContent').style.fontSize = document.getElementById('setFontSize').value + 'px';
-        document.getElementById('mainContent').style.lineHeight = document.getElementById('setLineHeight').value;
+        const main = document.getElementById('mainContent');
+        
+        // ফন্ট সাইজ ও লাইন হাইট ফিক্স
+        main.style.fontSize = document.getElementById('setFontSize').value + 'px';
+        main.style.lineHeight = document.getElementById('setLineHeight').value;
+        
+        // প্যারা ইনডেন্ট ফিক্স
+        const indentVal = document.getElementById('setIndent').value + 'px';
+        const paras = main.getElementsByTagName('p');
+        for(let p of paras) { p.style.textIndent = indentVal; }
+
         document.getElementById('outSign').style.fontSize = document.getElementById('setSignSize').value + 'px';
 
         const cert = document.getElementById('certArea');
@@ -251,7 +262,7 @@
 
     function save() {
         const d = {};
-        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Roll','DOB','setUpz','setDist','setSession','setDept','setFontSize','setLineHeight','setSignSize','mTop','mBottom','mLeft','mRight','setPass'];
+        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Roll','DOB','setUpz','setDist','setSession','setDept','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass'];
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
             if(el) d[f] = el.value;
@@ -273,7 +284,7 @@
             document.getElementById('padMode').checked = d.pad;
             savedPass = d.setPass || "";
         }
-        setTodayDateBengali(); 
+        setTodayDateBengali();
         updateMasterLists();
     }
 </script>
