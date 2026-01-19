@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>BCTI - অল ফিক্সড এডিশন</title>
+    <title>BCTI - ক্লাস সেটিংস এডিশন</title>
     <style>
         :root { --primary: #004d40; --accent: #00695c; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #eaeff2; margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
@@ -101,10 +101,11 @@
         </div>
 
         <div class="section-title">📝 মাস্টার লিস্ট</div>
+        <div class="input-group"><label>শ্রেণী/ক্লাস (কমা দিয়ে)</label><input type="text" id="setCls" onblur="updateMasterLists()"></div>
+        <div class="input-group"><label>বিভাগ (কমা দিয়ে)</label><input type="text" id="setDept" onblur="updateMasterLists()"></div>
+        <div class="input-group"><label>সেশন (কমা দিয়ে)</label><input type="text" id="setSession" onblur="updateMasterLists()"></div>
         <div class="input-group"><label>উপজেলা (কমা দিয়ে)</label><input type="text" id="setUpz" onblur="updateMasterLists()"></div>
         <div class="input-group"><label>জেলা (কমা দিয়ে)</label><input type="text" id="setDist" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>সেশন (কমা দিয়ে)</label><input type="text" id="setSession" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>বিভাগ (কমা দিয়ে)</label><input type="text" id="setDept" onblur="updateMasterLists()"></div>
         <div class="input-group"><label>স্বাক্ষরকারীর পদবী</label><input type="text" id="inSign" oninput="sync()"></div>
 
         <div class="backup-tools">
@@ -128,13 +129,14 @@
             <div class="input-group" style="flex:1;"><label>জেলা</label><select id="inDist" onchange="sync()"></select></div>
         </div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>সেশন</label><select id="inSession" onchange="sync()"></select></div>
+            <div class="input-group" style="flex:1;"><label>শ্রেণী/ক্লাস</label><select id="inCls" onchange="sync()"></select></div>
             <div class="input-group" style="flex:1;"><label>বিভাগ</label><select id="inDept" onchange="sync()"></select></div>
         </div>
         <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>সেশন</label><select id="inSession" onchange="sync()"></select></div>
             <div class="input-group" style="flex:1;"><label>রোল</label><input type="text" id="inRoll" oninput="sync()"></div>
-            <div class="input-group" style="flex:1;"><label>জন্ম তারিখ</label><input type="text" id="inDOB" oninput="sync()"></div>
         </div>
+        <div class="input-group"><label>জন্ম তারিখ</label><input type="text" id="inDOB" oninput="sync()"></div>
         <div style="margin: 15px 0;"><label style="cursor:pointer; font-weight: bold; color: #d32f2f;"><input type="checkbox" id="padMode" onchange="sync()"> প্যাডে প্রিন্ট (হেডার লুকান)</label></div>
         <button class="btn btn-print" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
     </div>
@@ -157,7 +159,7 @@
         </div>
         <div class="title"><span>প্রত্যয়ন পত্র</span></div>
         <div id="mainContent" class="content">
-            <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের একাদশ শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
+            <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের <span id="outCls" class="data-text">..............</span> শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
             
             <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
         </div>
@@ -169,7 +171,7 @@
 </div>
 
 <script>
-    const KEY = 'bcti_indent_fixed_v30';
+    const KEY = 'bcti_class_fix_v31';
     let savedPass = "";
 
     function toBengaliNumber(n) {
@@ -198,7 +200,7 @@
     }
 
     function updateMasterLists() {
-        ['Upz', 'Dist', 'Session', 'Dept'].forEach(type => {
+        ['Upz', 'Dist', 'Session', 'Dept', 'Cls'].forEach(type => {
             const listEl = document.getElementById('set' + type);
             if(listEl) {
                 const selectEl = document.getElementById('in' + type);
@@ -209,25 +211,20 @@
     }
 
     function sync() {
-        ['Shop', 'Estd', 'Addr', 'Email', 'Web', 'Sign', 'Name', 'Father', 'Mother', 'Vill', 'Upz', 'Dist', 'Session', 'Dept', 'Roll', 'DOB'].forEach(id => {
+        ['Shop', 'Estd', 'Addr', 'Email', 'Web', 'Sign', 'Name', 'Father', 'Mother', 'Vill', 'Upz', 'Dist', 'Session', 'Dept', 'Cls', 'Roll', 'DOB'].forEach(id => {
             const val = (document.getElementById('in' + id) || {}).value || "";
             const out = document.getElementById('out' + id);
             if(out) {
                 if(id === 'Sign') out.innerText = val || "অধ্যক্ষ/পরিচালক";
                 else if(id === 'Estd') out.innerText = val || "";
-                else if(id === 'Email') out.innerText = val ? "Email: " + val : "";
-                else if(id === 'Web') out.innerText = val ? "Website: " + val : "";
                 else out.innerText = val || "..............";
             }
         });
 
         const main = document.getElementById('mainContent');
-        
-        // ফন্ট সাইজ ও লাইন হাইট ফিক্স
         main.style.fontSize = document.getElementById('setFontSize').value + 'px';
         main.style.lineHeight = document.getElementById('setLineHeight').value;
         
-        // প্যারা ইনডেন্ট ফিক্স
         const indentVal = document.getElementById('setIndent').value + 'px';
         const paras = main.getElementsByTagName('p');
         for(let p of paras) { p.style.textIndent = indentVal; }
@@ -262,7 +259,7 @@
 
     function save() {
         const d = {};
-        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Roll','DOB','setUpz','setDist','setSession','setDept','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass'];
+        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass'];
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
             if(el) d[f] = el.value;
