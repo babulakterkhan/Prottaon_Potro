@@ -18,6 +18,13 @@
         .input-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #555; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
 
+        /* নতুন স্লাইডার স্টাইল */
+        .slider-group { margin-bottom: 12px; }
+        .slider-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #555; }
+        .slider-container { display: flex; align-items: center; gap: 10px; }
+        .slider-container input[type="range"] { flex: 1; }
+        .slider-value { min-width: 30px; text-align: center; font-weight: bold; }
+
         .backup-tools { display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid #ccc; padding-top: 15px; }
         .btn-sm { flex: 1; padding: 8px; font-size: 12px; cursor: pointer; border-radius: 4px; border: 1px solid #999; background: #fff; font-weight: bold; text-align: center; }
 
@@ -77,6 +84,34 @@
         <hr>
         <div class="input-group"><label>লোগো আপলোড</label><input type="file" accept="image/*" onchange="updateLogo(this)"></div>
         <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()"></div>
+        
+        <!-- প্রতিষ্ঠানের নামের ফন্ট সাইজ স্লাইডার -->
+        <div class="slider-group">
+            <label>প্রতিষ্ঠানের নামের ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="shopNameSize" min="16" max="48" value="28" oninput="updateShopSize(this.value)" onchange="save()">
+                <span id="shopSizeValue" class="slider-value">28px</span>
+            </div>
+        </div>
+        
+        <!-- ঠিকানার ফন্ট সাইজ স্লাইডার -->
+        <div class="slider-group">
+            <label>ঠিকানার ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="addressSize" min="10" max="20" value="15" oninput="updateAddressSize(this.value)" onchange="save()">
+                <span id="addressSizeValue" class="slider-value">15px</span>
+            </div>
+        </div>
+        
+        <!-- তারিখের ফন্ট সাইজ স্লাইডার -->
+        <div class="slider-group">
+            <label>তারিখের ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="dateSize" min="10" max="24" value="16" oninput="updateDateSize(this.value)" onchange="save()">
+                <span id="dateSizeValue" class="slider-value">16px</span>
+            </div>
+        </div>
+        
         <div class="input-group"><label>স্থাপিত</label><input type="text" id="inEstd" oninput="sync()"></div>
         <div class="input-group"><label>ঠিকানা ও মোবাইল</label><textarea id="inAddr" rows="1" oninput="sync()"></textarea></div>
         <div style="display: flex; gap: 8px;">
@@ -171,8 +206,10 @@
 </div>
 
 <script>
-    const KEY = 'bcti_class_fix_v31';
+    const KEY = 'bcti_class_fix_v33';
     let savedPass = "";
+    let originalContentHTML = ""; // মূল কন্টেন্ট সংরক্ষণ করার জন্য
+    let hasDeptSection = true; // বিভাগের অংশ আছে কিনা ট্র্যাক রাখতে
 
     function toBengaliNumber(n) {
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
@@ -199,6 +236,24 @@
         else if (input !== null) alert("ভুল পাসওয়ার্ড!");
     }
 
+    // প্রতিষ্ঠানের নামের ফন্ট সাইজ আপডেট
+    function updateShopSize(val) {
+        document.getElementById('shopSizeValue').textContent = val + 'px';
+        document.getElementById('outShop').style.fontSize = val + 'px';
+    }
+
+    // ঠিকানার ফন্ট সাইজ আপডেট
+    function updateAddressSize(val) {
+        document.getElementById('addressSizeValue').textContent = val + 'px';
+        document.getElementById('outAddr').style.fontSize = val + 'px';
+    }
+
+    // তারিখের ফন্ট সাইজ আপডেট
+    function updateDateSize(val) {
+        document.getElementById('dateSizeValue').textContent = val + 'px';
+        document.getElementById('outDate').style.fontSize = val + 'px';
+    }
+
     function updateMasterLists() {
         ['Upz', 'Dist', 'Session', 'Dept', 'Cls'].forEach(type => {
             const listEl = document.getElementById('set' + type);
@@ -211,16 +266,56 @@
     }
 
     function sync() {
+        // প্রথমে সব শিক্ষার্থীর তথ্য আপডেট করুন
         ['Shop', 'Estd', 'Addr', 'Email', 'Web', 'Sign', 'Name', 'Father', 'Mother', 'Vill', 'Upz', 'Dist', 'Session', 'Dept', 'Cls', 'Roll', 'DOB'].forEach(id => {
             const val = (document.getElementById('in' + id) || {}).value || "";
             const out = document.getElementById('out' + id);
             if(out) {
-                if(id === 'Sign') out.innerText = val || "অধ্যক্ষ/পরিচালক";
-                else if(id === 'Estd') out.innerText = val || "";
-                else out.innerText = val || "..............";
+                if(id === 'Sign') {
+                    out.innerText = val || "অধ্যক্ষ/পরিচালক";
+                } else if(id === 'Estd') {
+                    out.innerText = val || "";
+                } else {
+                    out.innerText = val || "..............";
+                }
             }
         });
 
+        // এখন বিভাগ লজিক হ্যান্ডেল করুন
+        const deptVal = document.getElementById('inDept').value || "";
+        const mainContent = document.getElementById('mainContent');
+        const firstParagraph = mainContent.getElementsByTagName('p')[0];
+        
+        // প্রথম লোডে মূল কন্টেন্ট সংরক্ষণ করুন (যদি এখনও না করা থাকে)
+        if (!originalContentHTML) {
+            originalContentHTML = firstParagraph.innerHTML;
+        }
+        
+        // বিভাগের মান চেক করুন
+        if (deptVal.trim() === "") {
+            // বিভাগ না থাকলে "বিভাগের" শব্দটা সরান (শুধু একবার)
+            if (hasDeptSection) {
+                let newHTML = originalContentHTML;
+                // "শিক্ষাবর্ষের" এর পরের " বিভাগের" অংশটি সরান
+                newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
+                firstParagraph.innerHTML = newHTML;
+                hasDeptSection = false;
+            }
+        } else {
+            // বিভাগ থাকলে মূল কন্টেন্ট ব্যবহার করুন (শুধু একবার)
+            if (!hasDeptSection) {
+                firstParagraph.innerHTML = originalContentHTML;
+                hasDeptSection = true;
+            }
+            
+            // বিভাগের মান আপডেট করুন
+            const deptSpan = document.getElementById('outDept');
+            if (deptSpan) {
+                deptSpan.textContent = deptVal;
+            }
+        }
+
+        // প্রধান কন্টেন্ট স্টাইলিং
         const main = document.getElementById('mainContent');
         main.style.fontSize = document.getElementById('setFontSize').value + 'px';
         main.style.lineHeight = document.getElementById('setLineHeight').value;
@@ -229,11 +324,22 @@
         const paras = main.getElementsByTagName('p');
         for(let p of paras) { p.style.textIndent = indentVal; }
 
+        // স্বাক্ষর ফন্ট সাইজ
         document.getElementById('outSign').style.fontSize = document.getElementById('setSignSize').value + 'px';
 
+        // প্যাডিং
         const cert = document.getElementById('certArea');
         cert.style.padding = `${document.getElementById('mTop').value}px ${document.getElementById('mRight').value}px ${document.getElementById('mBottom').value}px ${document.getElementById('mLeft').value}px`;
         cert.classList.toggle('pad-mode-on', document.getElementById('padMode').checked);
+        
+        // নতুন: ঠিকানা ও তারিখের ফন্ট সাইজ সিঙ্ক করুন
+        if (document.getElementById('addressSize')) {
+            document.getElementById('outAddr').style.fontSize = document.getElementById('addressSize').value + 'px';
+        }
+        if (document.getElementById('dateSize')) {
+            document.getElementById('outDate').style.fontSize = document.getElementById('dateSize').value + 'px';
+        }
+        
         save();
     }
 
@@ -259,7 +365,7 @@
 
     function save() {
         const d = {};
-        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass'];
+        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','addressSize','dateSize'];
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
             if(el) d[f] = el.value;
@@ -280,9 +386,30 @@
             if(d.logo) document.getElementById('certLogo').src = d.logo;
             document.getElementById('padMode').checked = d.pad;
             savedPass = d.setPass || "";
+            
+            // প্রতিষ্ঠানের নামের সাইজ লোড করুন
+            if(d.shopNameSize) {
+                document.getElementById('shopNameSize').value = d.shopNameSize;
+                updateShopSize(d.shopNameSize);
+            }
+            
+            // ঠিকানার সাইজ লোড করুন
+            if(d.addressSize) {
+                document.getElementById('addressSize').value = d.addressSize;
+                updateAddressSize(d.addressSize);
+            }
+            
+            // তারিখের সাইজ লোড করুন
+            if(d.dateSize) {
+                document.getElementById('dateSize').value = d.dateSize;
+                updateDateSize(d.dateSize);
+            }
         }
         setTodayDateBengali();
         updateMasterLists();
+        
+        // প্রথমবারের জন্য সিঙ্ক করুন
+        setTimeout(sync, 100);
     }
 </script>
 </body>
