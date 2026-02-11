@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>BCTI - ক্লাস সেটিংস এডিশন</title>
+    <!-- Google Fonts থেকে Hind Siliguri - সঠিক লিংক -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root { --primary: #004d40; --accent: #00695c; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #eaeff2; margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
@@ -83,6 +88,25 @@
         <div class="input-group"><label>🔒 সেটিং পাসওয়ার্ড</label><input type="password" id="setPass" onblur="save()"></div>
         <hr>
         <div class="input-group"><label>লোগো আপলোড</label><input type="file" accept="image/*" onchange="updateLogo(this)"></div>
+        
+        <!-- ফন্ট সিলেকশন অপশন - Hind Siliguri এখন সঠিকভাবে কাজ করবে -->
+        <div class="input-group">
+            <label>🎨 ফন্ট সিলেক্ট করুন</label>
+            <select id="fontFamily" onchange="updateFontFamily(this.value)">
+                <option value="'Segoe UI', Arial, sans-serif">Segoe UI (ডিফল্ট)</option>
+                <option value="'Hind Siliguri', sans-serif">⭐ Hind Siliguri (হিন্দ সিলিগুড়ি)</option>
+                <option value="'SolaimanLipi', Arial, sans-serif">সলিমান লিপি</option>
+                <option value="'Kalpurush', Arial, sans-serif">কালপুরুষ</option>
+                <option value="'Siyam Rupali', Arial, sans-serif">সিয়াম রুপালি</option>
+                <option value="'Nikosh', Arial, sans-serif">নিকোশ</option>
+                <option value="'Arial', sans-serif">এরিয়াল</option>
+                <option value="'Times New Roman', serif">টাইমস নিউ রোমান</option>
+                <option value="'Courier New', monospace">কুরিয়ার নিউ</option>
+                <option value="'Verdana', sans-serif">ভারডানা</option>
+                <option value="'Tahoma', sans-serif">তাহোমা</option>
+            </select>
+        </div>
+        
         <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()"></div>
         
         <!-- প্রতিষ্ঠানের নামের ফন্ট সাইজ স্লাইডার -->
@@ -254,6 +278,34 @@
         document.getElementById('outDate').style.fontSize = val + 'px';
     }
 
+    // ফন্ট ফ্যামিলি আপডেট করার ফাংশন - Hind Siliguri এখন কাজ করবে
+    function updateFontFamily(fontValue) {
+        const certificate = document.getElementById('certArea');
+        const headerText = document.querySelector('.header-text h1');
+        const title = document.querySelector('.title span');
+        const content = document.getElementById('mainContent');
+        const footer = document.querySelector('.sign-box');
+        const outAddr = document.getElementById('outAddr');
+        const outDate = document.getElementById('outDate');
+        const estdText = document.querySelector('.estd-text');
+        const contactSpans = document.querySelectorAll('.contact-info span');
+        
+        certificate.style.fontFamily = fontValue;
+        headerText.style.fontFamily = fontValue;
+        title.style.fontFamily = fontValue;
+        content.style.fontFamily = fontValue;
+        footer.style.fontFamily = fontValue;
+        outAddr.style.fontFamily = fontValue;
+        outDate.style.fontFamily = fontValue;
+        estdText.style.fontFamily = fontValue;
+        
+        contactSpans.forEach(span => {
+            span.style.fontFamily = fontValue;
+        });
+        
+        save();
+    }
+
     function updateMasterLists() {
         ['Upz', 'Dist', 'Session', 'Dept', 'Cls'].forEach(type => {
             const listEl = document.getElementById('set' + type);
@@ -365,7 +417,7 @@
 
     function save() {
         const d = {};
-        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','addressSize','dateSize'];
+        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','addressSize','dateSize','fontFamily'];
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
             if(el) d[f] = el.value;
@@ -404,6 +456,12 @@
                 document.getElementById('dateSize').value = d.dateSize;
                 updateDateSize(d.dateSize);
             }
+            
+            // ফন্ট ফ্যামিলি লোড করুন - Hind Siliguri এখন কাজ করবে
+            if(d.fontFamily) {
+                document.getElementById('fontFamily').value = d.fontFamily;
+                updateFontFamily(d.fontFamily);
+            }
         }
         setTodayDateBengali();
         updateMasterLists();
@@ -412,5 +470,11 @@
         setTimeout(sync, 100);
     }
 </script>
+
+<!-- বাংলা ফন্টের জন্য Google Fonts লিংক -->
+<link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+<link href="https://fonts.maateen.me/siyam-rupali/font.css" rel="stylesheet">
+<link href="https://fonts.maateen.me/nikosh/font.css" rel="stylesheet">
 </body>
 </html>
