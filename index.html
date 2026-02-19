@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>BCTI - ক্লাস সেটিংস এডিশন</title>
-    <!-- Google Fonts থেকে Hind Siliguri - সঠিক লিংক -->
+    
+    <!-- গুগল ফন্ট লিংক -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@100..900&family=Baloo+Da2:wght@400..800&family=Galada&family=Kalpurush&family=Siyam+Rupali&family=Solaiman+Lipi&family=Nikosh&display=swap" rel="stylesheet">
     
     <style>
         :root { --primary: #004d40; --accent: #00695c; }
@@ -23,7 +24,6 @@
         .input-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #555; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
 
-        /* নতুন স্লাইডার স্টাইল */
         .slider-group { margin-bottom: 12px; }
         .slider-group label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #555; }
         .slider-container { display: flex; align-items: center; gap: 10px; }
@@ -38,11 +38,27 @@
         
         .pad-mode-on .header-area { display: none !important; }
 
-        .header-area { display: grid; grid-template-columns: 100px 1fr 100px; align-items: center; border-bottom: 3px solid var(--primary); margin-bottom: 45px; padding-bottom: 20px; }
+        .header-area { 
+            display: grid; 
+            grid-template-columns: 100px 1fr 100px; 
+            align-items: center; 
+            border-bottom: 3px solid var(--primary); 
+            margin-bottom: 30px; 
+            padding-bottom: 20px; 
+        }
         .logo-box { width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
         .logo-box img { max-width: 100%; max-height: 90px; object-fit: contain; }
         
         .header-text { text-align: center; }
+        
+        .office-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
         .header-text h1 { margin: 0; font-size: 28px; font-weight: bold; color: var(--primary); }
         .estd-text { font-size: 14px; margin: 2px 0; color: #444; font-weight: bold; display: block; }
         .header-text p { margin: 5px 0 2px; font-size: 15px; color: #333; }
@@ -50,7 +66,43 @@
         .contact-info { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 5px; }
         .contact-info span { font-size: 13px; color: var(--accent); font-weight: 500; }
 
-        .title { text-align: center; margin: 40px 0; }
+        .meta-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 30px 0;
+            font-size: 18px;
+            font-weight: normal;
+            padding: 0 10px;
+        }
+        .meta-dak {
+            text-align: left;
+            flex: 1;
+        }
+        .meta-date {
+            text-align: right;
+            flex: 1;
+        }
+        .meta-label {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .meta-value {
+            font-weight: normal;
+            color: #000;
+            border-bottom: 1px dotted #999;
+            padding: 0 5px;
+        }
+
+        .header-lines {
+            line-height: 1.2;
+        }
+
+        .body-content {
+            margin-top: 0px;
+        }
+
+        .title { text-align: center; margin: 20px 0 40px 0; }
         .title span { font-size: 26px; font-weight: bold; color: #fff; background: var(--primary); padding: 5px 35px; border-radius: 50px; }
 
         .content { font-size: 20px; text-align: justify; color: #000; }
@@ -68,7 +120,7 @@
             .input-panel { display: none !important; }
             .preview-panel { padding: 0; background: white; }
             .certificate { box-shadow: none; border: none; width: 210mm; height: 297mm; margin: 0; }
-            .data-text { border-bottom: none !important; }
+            .data-text, .meta-value { border-bottom: none !important; }
             .title span { background: var(--primary) !important; color: white !important; -webkit-print-color-adjust: exact; }
             .header-text h1 { color: var(--primary) !important; -webkit-print-color-adjust: exact; }
             @page { size: portrait; margin: 0; }
@@ -89,27 +141,18 @@
         <hr>
         <div class="input-group"><label>লোগো আপলোড</label><input type="file" accept="image/*" onchange="updateLogo(this)"></div>
         
-        <!-- ফন্ট সিলেকশন অপশন - Hind Siliguri এখন সঠিকভাবে কাজ করবে -->
         <div class="input-group">
-            <label>🎨 ফন্ট সিলেক্ট করুন</label>
-            <select id="fontFamily" onchange="updateFontFamily(this.value)">
-                <option value="'Segoe UI', Arial, sans-serif">Segoe UI (ডিফল্ট)</option>
-                <option value="'Hind Siliguri', sans-serif">⭐ Hind Siliguri (হিন্দ সিলিগুড়ি)</option>
-                <option value="'SolaimanLipi', Arial, sans-serif">সলিমান লিপি</option>
-                <option value="'Kalpurush', Arial, sans-serif">কালপুরুষ</option>
-                <option value="'Siyam Rupali', Arial, sans-serif">সিয়াম রুপালি</option>
-                <option value="'Nikosh', Arial, sans-serif">নিকোশ</option>
-                <option value="'Arial', sans-serif">এরিয়াল</option>
-                <option value="'Times New Roman', serif">টাইমস নিউ রোমান</option>
-                <option value="'Courier New', monospace">কুরিয়ার নিউ</option>
-                <option value="'Verdana', sans-serif">ভারডানা</option>
-                <option value="'Tahoma', sans-serif">তাহোমা</option>
+            <label>📋 পদবী নির্বাচন</label>
+            <select id="inSignTitle" onchange="sync()">
+                <option value="প্রধান শিক্ষক">প্রধান শিক্ষক</option>
+                <option value="অধ্যক্ষ">অধ্যক্ষ</option>
+                <option value="অধ্যক্ষ/পরিচালক">অধ্যক্ষ/পরিচালক</option>
+                <option value="অধ্যক্ষ (ভারপ্রাপ্ত)">অধ্যক্ষ (ভারপ্রাপ্ত)</option>
             </select>
         </div>
         
-        <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()"></div>
+        <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()" value="মওলানা ছাইফ উদ্দিন এহিয়া উচ্চ বিদ্যালয়"></div>
         
-        <!-- প্রতিষ্ঠানের নামের ফন্ট সাইজ স্লাইডার -->
         <div class="slider-group">
             <label>প্রতিষ্ঠানের নামের ফন্ট সাইজ</label>
             <div class="slider-container">
@@ -118,7 +161,14 @@
             </div>
         </div>
         
-        <!-- ঠিকানার ফন্ট সাইজ স্লাইডার -->
+        <div class="slider-group">
+            <label>অফিসের নামের ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="officeNameSize" min="12" max="32" value="20" oninput="updateOfficeNameSize(this.value)" onchange="save()">
+                <span id="officeNameValue" class="slider-value">20px</span>
+            </div>
+        </div>
+        
         <div class="slider-group">
             <label>ঠিকানার ফন্ট সাইজ</label>
             <div class="slider-container">
@@ -127,32 +177,117 @@
             </div>
         </div>
         
-        <!-- তারিখের ফন্ট সাইজ স্লাইডার -->
         <div class="slider-group">
-            <label>তারিখের ফন্ট সাইজ</label>
+            <label>নিচের তারিখের ফন্ট সাইজ</label>
             <div class="slider-container">
                 <input type="range" id="dateSize" min="10" max="24" value="16" oninput="updateDateSize(this.value)" onchange="save()">
                 <span id="dateSizeValue" class="slider-value">16px</span>
             </div>
         </div>
         
-        <div class="input-group"><label>স্থাপিত</label><input type="text" id="inEstd" oninput="sync()"></div>
-        <div class="input-group"><label>ঠিকানা ও মোবাইল</label><textarea id="inAddr" rows="1" oninput="sync()"></textarea></div>
-        <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>ইমেইল</label><input type="text" id="inEmail" oninput="sync()"></div>
-            <div class="input-group" style="flex:1;"><label>ওয়েবসাইট</label><input type="text" id="inWeb" oninput="sync()"></div>
+        <div class="slider-group">
+            <label>প্রত্যয়ন পত্র টাইটেলের ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="titleSize" min="18" max="40" value="26" oninput="updateTitleSize(this.value)" onchange="save()">
+                <span id="titleSizeValue" class="slider-value">26px</span>
+            </div>
         </div>
 
-        <div class="section-title">📏 ফন্ট, গ্যাপ ও ইনডেন্ট</div>
+        <div class="slider-group">
+            <label>📏 বডির লাইন গ্যাপ</label>
+            <div class="slider-container">
+                <input type="range" id="lineGap" min="0.5" max="3.0" step="0.1" value="2.2" oninput="updateLineGap(this.value)" onchange="save()">
+                <span id="lineGapValue" class="slider-value">2.2</span>
+            </div>
+        </div>
+
+        <div class="slider-group">
+            <label>📏 হেডারের লাইন গ্যাপ</label>
+            <div class="slider-container">
+                <input type="range" id="headerLineGap" min="0.8" max="2.5" step="0.1" value="1.2" oninput="updateHeaderLineGap(this.value)" onchange="save()">
+                <span id="headerLineGapValue" class="slider-value">1.2</span>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label>🎨 গুগল ফন্ট নির্বাচন</label>
+            <select id="fontFamily" onchange="updateFontFamily(this.value)">
+                <option value="'Segoe UI', Arial, sans-serif">Segoe UI (ডিফল্ট)</option>
+                <option value="'Hind Siliguri', sans-serif">Hind Siliguri</option>
+                <option value="'Noto Serif Bengali', serif">Noto Serif Bengali</option>
+                <option value="'Baloo Da 2', cursive">Baloo Da 2</option>
+                <option value="'Galada', cursive">Galada</option>
+                <option value="'Kalpurush', Arial, sans-serif">কালপুরুষ</option>
+                <option value="'Siyam Rupali', Arial, sans-serif">সিয়াম রূপালী</option>
+                <option value="'SolaimanLipi', Arial, sans-serif">সলিমান লিপি</option>
+                <option value="'Nikosh', Arial, sans-serif">নিকোশ</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="'Georgia', serif">Georgia</option>
+                <option value="'Tahoma', sans-serif">Tahoma</option>
+                <option value="'Verdana', sans-serif">Verdana</option>
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="'Roboto', sans-serif">Roboto</option>
+                <option value="'Open Sans', sans-serif">Open Sans</option>
+            </select>
+        </div>
+        
+        <div style="font-size:12px; color:#666; margin-top:5px; padding:5px; background:#f9f9f9; border-radius:3px;">
+            ⚡ গুগল ফন্ট অনলাইন থেকে লোড হয়, তাই ইন্টারনেট সংযোগ থাকতে হবে
+        </div>
+        
+        <div class="input-group"><label>স্থাপিত</label><input type="text" id="inEstd" oninput="sync()" value="১৯৯৪"></div>
+        <div class="input-group"><label>ঠিকানা ও মোবাইল</label><textarea id="inAddr" rows="1" oninput="sync()">শাহজাদপুর, সিরাজগঞ্জ, মোবাইল: ০১৩০৯-১২৮২৮৫</textarea></div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>মূল ফন্ট</label><input type="number" id="setFontSize" value="20" oninput="sync()"></div>
-            <div class="input-group" style="flex:1;"><label>লাইন গ্যাপ</label><input type="number" step="0.1" id="setLineHeight" value="2.2" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>ইমেইল</label><input type="text" id="inEmail" oninput="sync()" value="babulcomputer@gmail.com"></div>
+            <div class="input-group" style="flex:1;"><label>ওয়েবসাইট</label><input type="text" id="inWeb" oninput="sync()" value="www.msuashschool.edu.bd"></div>
+        </div>
+
+        <div class="section-title">📏 ফন্ট ও ইনডেন্ট</div>
+        <div style="display: flex; gap: 8px;">
+            <div class="input-group" style="flex:1;"><label>মূল ফন্ট সাইজ</label><input type="number" id="setFontSize" value="20" oninput="sync()"></div>
             <div class="input-group" style="flex:1;"><label>প্যারা ইনডেন্ট</label><input type="number" id="setIndent" value="0" oninput="sync()"></div>
         </div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>স্বাক্ষর ফন্ট</label><input type="number" id="setSignSize" value="18" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>স্বাক্ষর ফন্ট সাইজ</label><input type="number" id="setSignSize" value="18" oninput="sync()"></div>
         </div>
-        <div style="display: flex; gap: 5px;">
+        
+        <div class="section-title">📐 অবস্থান নিয়ন্ত্রণ</div>
+        
+        <div class="slider-group">
+            <label>📌 স্মারক-তারিখের উপরের মার্জিন</label>
+            <div class="slider-container">
+                <input type="range" id="metaTopMargin" min="-50" max="150" value="20" oninput="updateMetaMargin(this.value)" onchange="save()">
+                <span id="metaTopValue" class="slider-value">20px</span>
+            </div>
+        </div>
+        
+        <div class="slider-group">
+            <label>🔤 স্মারক-তারিখের ফন্ট সাইজ</label>
+            <div class="slider-container">
+                <input type="range" id="metaFontSize" min="12" max="28" value="18" oninput="updateMetaFontSize(this.value)" onchange="save()">
+                <span id="metaFontValue" class="slider-value">18px</span>
+            </div>
+        </div>
+        
+        <div class="slider-group">
+            <label>📄 টাইটেল ও বডির উপরের মার্জিন</label>
+            <div class="slider-container">
+                <input type="range" id="bodyTopMargin" min="0" max="150" value="0" oninput="updateBodyMargin(this.value)" onchange="save()">
+                <span id="bodyTopValue" class="slider-value">0px</span>
+            </div>
+        </div>
+        
+        <div class="slider-group">
+            <label>📌 হেডারের উপরের মার্জিন</label>
+            <div class="slider-container">
+                <input type="range" id="headerTopMargin" min="0" max="100" value="0" oninput="updateHeaderMargin(this.value)" onchange="save()">
+                <span id="headerTopValue" class="slider-value">0px</span>
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 5px; margin-top: 10px;">
             <div class="input-group" style="flex:1;"><label>উপর</label><input type="number" id="mTop" value="100" oninput="sync()"></div>
             <div class="input-group" style="flex:1;"><label>নিচ</label><input type="number" id="mBottom" value="50" oninput="sync()"></div>
             <div class="input-group" style="flex:1;"><label>বাম</label><input type="number" id="mLeft" value="75" oninput="sync()"></div>
@@ -160,12 +295,13 @@
         </div>
 
         <div class="section-title">📝 মাস্টার লিস্ট</div>
-        <div class="input-group"><label>শ্রেণী/ক্লাস (কমা দিয়ে)</label><input type="text" id="setCls" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>বিভাগ (কমা দিয়ে)</label><input type="text" id="setDept" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>সেশন (কমা দিয়ে)</label><input type="text" id="setSession" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>উপজেলা (কমা দিয়ে)</label><input type="text" id="setUpz" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>জেলা (কমা দিয়ে)</label><input type="text" id="setDist" onblur="updateMasterLists()"></div>
-        <div class="input-group"><label>স্বাক্ষরকারীর পদবী</label><input type="text" id="inSign" oninput="sync()"></div>
+        <div class="input-group"><label>শ্রেণী/ক্লাস (কমা দিয়ে)</label><input type="text" id="setCls" onblur="updateMasterLists()" value="৬ষ্ঠ,৭ম,৮ম,৯ম,১০ম"></div>
+        <div class="input-group"><label>বিভাগ (কমা দিয়ে)</label><input type="text" id="setDept" onblur="updateMasterLists()" value="বিজ্ঞান,মানবিক,ব্যবসায় শিক্ষা"></div>
+        <div class="input-group"><label>সেশন (কমা দিয়ে)</label><input type="text" id="setSession" onblur="updateMasterLists()" value="২০২৪,২০২৫,২০২৬"></div>
+        <div class="input-group"><label>উপজেলা (কমা দিয়ে)</label><input type="text" id="setUpz" onblur="updateMasterLists()" value="শাহজাদপুর"></div>
+        <div class="input-group"><label>জেলা (কমা দিয়ে)</label><input type="text" id="setDist" onblur="updateMasterLists()" value="সিরাজগঞ্জ"></div>
+        
+        <div class="input-group"><label>📋 স্মারক নং</label><input type="text" id="inDak" oninput="sync()" value="বিদ্যালয়/সদর/২০২৪/১২৩"></div>
 
         <div class="backup-tools">
             <button class="btn-sm" onclick="exportJSON()">📥 ব্যাকআপ</button>
@@ -177,25 +313,36 @@
 
     <div class="panel-section">
         <div class="section-title">👤 শিক্ষার্থীর তথ্য</div>
-        <div class="input-group"><label>শিক্ষার্থীর নাম</label><input type="text" id="inName" oninput="sync()"></div>
+        <div class="input-group"><label>শিক্ষার্থীর নাম</label><input type="text" id="inName" oninput="sync()" value="আবুল হাকিম"></div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>পিতার নাম</label><input type="text" id="inFather" oninput="sync()"></div>
-            <div class="input-group" style="flex:1;"><label>মাতার নাম</label><input type="text" id="inMother" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>পিতার নাম</label><input type="text" id="inFather" oninput="sync()" value="আহাদুল ইসলাম"></div>
+            <div class="input-group" style="flex:1;"><label>মাতার নাম</label><input type="text" id="inMother" oninput="sync()" value="সালমা খাতুন"></div>
         </div>
-        <div class="input-group"><label>গ্রাম/ঠিকানা</label><input type="text" id="inVill" oninput="sync()"></div>
+        <div class="input-group"><label>গ্রাম/ঠিকানা</label><input type="text" id="inVill" oninput="sync()" value="শেরখালী"></div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>উপজেলা</label><select id="inUpz" onchange="sync()"></select></div>
-            <div class="input-group" style="flex:1;"><label>জেলা</label><select id="inDist" onchange="sync()"></select></div>
+            <div class="input-group" style="flex:1;"><label>উপজেলা</label>
+                <select id="inUpz" onchange="sync()"></select>
+            </div>
+            <div class="input-group" style="flex:1;"><label>জেলা</label>
+                <select id="inDist" onchange="sync()"></select>
+            </div>
         </div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>শ্রেণী/ক্লাস</label><select id="inCls" onchange="sync()"></select></div>
-            <div class="input-group" style="flex:1;"><label>বিভাগ</label><select id="inDept" onchange="sync()"></select></div>
+            <div class="input-group" style="flex:1;"><label>শ্রেণী/ক্লাস</label>
+                <select id="inCls" onchange="sync()"></select>
+            </div>
+            <div class="input-group" style="flex:1;">
+                <label>বিভাগ (নিজে লিখুন)</label>
+                <input type="text" id="inDept" oninput="sync()" value="বিজ্ঞান" placeholder="যে কোনো বিভাগ লিখুন">
+            </div>
         </div>
         <div style="display: flex; gap: 8px;">
-            <div class="input-group" style="flex:1;"><label>সেশন</label><select id="inSession" onchange="sync()"></select></div>
-            <div class="input-group" style="flex:1;"><label>রোল</label><input type="text" id="inRoll" oninput="sync()"></div>
+            <div class="input-group" style="flex:1;"><label>সেশন</label>
+                <select id="inSession" onchange="sync()"></select>
+            </div>
+            <div class="input-group" style="flex:1;"><label>রোল</label><input type="text" id="inRoll" oninput="sync()" value="১০"></div>
         </div>
-        <div class="input-group"><label>জন্ম তারিখ</label><input type="text" id="inDOB" oninput="sync()"></div>
+        <div class="input-group"><label>জন্ম তারিখ</label><input type="text" id="inDOB" oninput="sync()" value="১৬/১১/১৯৬৮"></div>
         <div style="margin: 15px 0;"><label style="cursor:pointer; font-weight: bold; color: #d32f2f;"><input type="checkbox" id="padMode" onchange="sync()"> প্যাডে প্রিন্ট (হেডার লুকান)</label></div>
         <button class="btn btn-print" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
     </div>
@@ -203,37 +350,56 @@
 
 <div class="preview-panel">
     <div id="certArea" class="certificate">
-        <div class="header-area">
+        <div class="header-area" id="headerSection">
             <div class="logo-box"><img id="certLogo" src="https://via.placeholder.com/90?text=LOGO"></div>
             <div class="header-text">
-                <h1 id="outShop">প্রতিষ্ঠানের নাম</h1>
-                <span id="outEstd" class="estd-text"></span>
-                <p id="outAddr">ঠিকানা ও মোবাইল নম্বর</p>
-                <div class="contact-info">
-                    <span id="outEmail"></span>
-                    <span id="outWeb"></span>
+                <div class="header-lines" id="headerLines">
+                    <div class="office-name" id="outOfficeName">প্রধান শিক্ষকের কার্যালয়</div>
+                    <h1 id="outShop">প্রতিষ্ঠানের নাম</h1>
+                    <span id="outEstd" class="estd-text"></span>
+                    <p id="outAddr">ঠিকানা ও মোবাইল নম্বর</p>
+                    <div class="contact-info">
+                        <span id="outEmail"></span>
+                        <span id="outWeb"></span>
+                    </div>
                 </div>
             </div>
             <div style="width:90px;"></div>
         </div>
-        <div class="title"><span>প্রত্যয়ন পত্র</span></div>
-        <div id="mainContent" class="content">
-            <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের <span id="outCls" class="data-text">..............</span> শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
-            
-            <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
+        
+        <div class="meta-section" id="metaSection">
+            <div class="meta-dak">
+                <span class="meta-label">স্মারক নং:</span> 
+                <span class="meta-value" id="outDak">..............</span>
+            </div>
+            <div class="meta-date">
+                <span class="meta-label">তারিখ:</span> 
+                <span class="meta-value" id="outDateHeader">..............</span>
+            </div>
         </div>
-        <div class="footer">
-            <div id="outDate">তারিখ: </div>
-            <div id="outSign" class="sign-box">অধ্যক্ষ/পরিচালক</div>
+        
+        <div class="body-content" id="bodyContent">
+            <div class="title"><span id="titleText">প্রত্যয়ন পত্র</span></div>
+            
+            <div id="mainContent" class="content">
+                <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের <span id="outCls" class="data-text">..............</span> শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
+                
+                <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
+            </div>
+            
+            <div class="footer">
+                <div id="outDate">তারিখ: </div>
+                <div id="outSign" class="sign-box">অধ্যক্ষ/পরিচালক</div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    const KEY = 'bcti_class_fix_v33';
+    const KEY = 'bcti_class_fix_v67';
     let savedPass = "";
-    let originalContentHTML = ""; // মূল কন্টেন্ট সংরক্ষণ করার জন্য
-    let hasDeptSection = true; // বিভাগের অংশ আছে কিনা ট্র্যাক রাখতে
+    let originalContentHTML = "";
+    let noDeptMode = false;
 
     function toBengaliNumber(n) {
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
@@ -245,7 +411,10 @@
         const d = String(today.getDate()).padStart(2, '0');
         const m = String(today.getMonth() + 1).padStart(2, '0');
         const y = today.getFullYear();
-        document.getElementById('outDate').innerText = `তারিখ: ${toBengaliNumber(d)}/${toBengaliNumber(m)}/${toBengaliNumber(y)} খ্রি.`;
+        const bengaliDate = `${toBengaliNumber(d)}/${toBengaliNumber(m)}/${toBengaliNumber(y)} খ্রি.`;
+        
+        document.getElementById('outDate').innerText = `তারিখ: ${bengaliDate}`;
+        document.getElementById('outDateHeader').innerText = bengaliDate;
     }
 
     function toggleSettings() { 
@@ -260,144 +429,196 @@
         else if (input !== null) alert("ভুল পাসওয়ার্ড!");
     }
 
-    // প্রতিষ্ঠানের নামের ফন্ট সাইজ আপডেট
+    function updateFontFamily(fontValue) {
+        document.getElementById('certArea').style.fontFamily = fontValue;
+        save();
+    }
+
     function updateShopSize(val) {
         document.getElementById('shopSizeValue').textContent = val + 'px';
         document.getElementById('outShop').style.fontSize = val + 'px';
     }
 
-    // ঠিকানার ফন্ট সাইজ আপডেট
+    function updateOfficeNameSize(val) {
+        document.getElementById('officeNameValue').textContent = val + 'px';
+        document.getElementById('outOfficeName').style.fontSize = val + 'px';
+    }
+
     function updateAddressSize(val) {
         document.getElementById('addressSizeValue').textContent = val + 'px';
         document.getElementById('outAddr').style.fontSize = val + 'px';
     }
 
-    // তারিখের ফন্ট সাইজ আপডেট
     function updateDateSize(val) {
         document.getElementById('dateSizeValue').textContent = val + 'px';
         document.getElementById('outDate').style.fontSize = val + 'px';
     }
 
-    // ফন্ট ফ্যামিলি আপডেট করার ফাংশন - Hind Siliguri এখন কাজ করবে
-    function updateFontFamily(fontValue) {
-        const certificate = document.getElementById('certArea');
-        const headerText = document.querySelector('.header-text h1');
-        const title = document.querySelector('.title span');
-        const content = document.getElementById('mainContent');
-        const footer = document.querySelector('.sign-box');
-        const outAddr = document.getElementById('outAddr');
-        const outDate = document.getElementById('outDate');
-        const estdText = document.querySelector('.estd-text');
-        const contactSpans = document.querySelectorAll('.contact-info span');
-        
-        certificate.style.fontFamily = fontValue;
-        headerText.style.fontFamily = fontValue;
-        title.style.fontFamily = fontValue;
-        content.style.fontFamily = fontValue;
-        footer.style.fontFamily = fontValue;
-        outAddr.style.fontFamily = fontValue;
-        outDate.style.fontFamily = fontValue;
-        estdText.style.fontFamily = fontValue;
-        
-        contactSpans.forEach(span => {
-            span.style.fontFamily = fontValue;
-        });
-        
+    function updateTitleSize(val) {
+        document.getElementById('titleSizeValue').textContent = val + 'px';
+        document.getElementById('titleText').style.fontSize = val + 'px';
+    }
+
+    function updateLineGap(val) {
+        document.getElementById('lineGapValue').textContent = val;
+        document.getElementById('mainContent').style.lineHeight = val;
         save();
     }
 
+    function updateHeaderLineGap(val) {
+        document.getElementById('headerLineGapValue').textContent = val;
+        document.getElementById('headerLines').style.lineHeight = val;
+        save();
+    }
+
+    function updateHeaderMargin(val) {
+        document.getElementById('headerTopValue').textContent = val + 'px';
+        document.getElementById('headerSection').style.marginTop = val + 'px';
+    }
+
+    function updateMetaMargin(val) {
+        document.getElementById('metaTopValue').textContent = val + 'px';
+        document.getElementById('metaSection').style.marginTop = val + 'px';
+    }
+
+    function updateMetaFontSize(val) {
+        document.getElementById('metaFontValue').textContent = val + 'px';
+        document.getElementById('metaSection').style.fontSize = val + 'px';
+    }
+
+    function updateBodyMargin(val) {
+        document.getElementById('bodyTopValue').textContent = val + 'px';
+        document.getElementById('bodyContent').style.marginTop = val + 'px';
+    }
+
     function updateMasterLists() {
-        ['Upz', 'Dist', 'Session', 'Dept', 'Cls'].forEach(type => {
+        ['Upz', 'Dist', 'Session', 'Cls'].forEach(type => {
             const listEl = document.getElementById('set' + type);
             if(listEl) {
                 const selectEl = document.getElementById('in' + type);
-                selectEl.innerHTML = listEl.value.split(',').map(i => `<option value="${i.trim()}">${i.trim()}</option>`).join('');
+                const items = listEl.value.split(',').map(i => i.trim()).filter(i => i);
+                selectEl.innerHTML = items.map(i => `<option value="${i}">${i}</option>`).join('');
             }
         });
+        
         sync();
     }
 
     function sync() {
-        // প্রথমে সব শিক্ষার্থীর তথ্য আপডেট করুন
-        ['Shop', 'Estd', 'Addr', 'Email', 'Web', 'Sign', 'Name', 'Father', 'Mother', 'Vill', 'Upz', 'Dist', 'Session', 'Dept', 'Cls', 'Roll', 'DOB'].forEach(id => {
-            const val = (document.getElementById('in' + id) || {}).value || "";
-            const out = document.getElementById('out' + id);
-            if(out) {
-                if(id === 'Sign') {
-                    out.innerText = val || "অধ্যক্ষ/পরিচালক";
-                } else if(id === 'Estd') {
-                    out.innerText = val || "";
-                } else {
-                    out.innerText = val || "..............";
-                }
-            }
-        });
+        const signTitle = document.getElementById('inSignTitle').value || "প্রধান শিক্ষক";
+        document.getElementById('outOfficeName').innerText = signTitle + "ের কার্যালয়";
+        document.getElementById('outSign').innerText = signTitle;
+        
+        document.getElementById('outShop').innerText = document.getElementById('inShop').value || "প্রতিষ্ঠানের নাম";
+        document.getElementById('outEstd').innerText = document.getElementById('inEstd').value || "";
+        document.getElementById('outAddr').innerText = document.getElementById('inAddr').value || "ঠিকানা ও মোবাইল নম্বর";
+        document.getElementById('outEmail').innerText = document.getElementById('inEmail').value || "";
+        document.getElementById('outWeb').innerText = document.getElementById('inWeb').value || "";
+        document.getElementById('outDak').innerText = document.getElementById('inDak').value || "..............";
+        document.getElementById('outName').innerText = document.getElementById('inName').value || "..............";
+        document.getElementById('outFather').innerText = document.getElementById('inFather').value || "..............";
+        document.getElementById('outMother').innerText = document.getElementById('inMother').value || "..............";
+        document.getElementById('outVill').innerText = document.getElementById('inVill').value || "..............";
+        document.getElementById('outUpz').innerText = document.getElementById('inUpz').value || "..............";
+        document.getElementById('outDist').innerText = document.getElementById('inDist').value || "..............";
+        document.getElementById('outSession').innerText = document.getElementById('inSession').value || "..............";
+        document.getElementById('outCls').innerText = document.getElementById('inCls').value || "..............";
+        
+        // ৬ষ্ঠ-৮ম শ্রেণীতে বিভাগ দেখাবে না
+        const clsVal = document.getElementById('inCls').value || "";
+        const deptValue = document.getElementById('inDept').value || "";
+        
+        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+            document.getElementById('outDept').innerText = "";
+            noDeptMode = true;
+        } else {
+            document.getElementById('outDept').innerText = deptValue || "..............";
+            noDeptMode = false;
+        }
+        
+        document.getElementById('outRoll').innerText = document.getElementById('inRoll').value || ".........";
+        document.getElementById('outDOB').innerText = document.getElementById('inDOB').value || "..................";
 
-        // এখন বিভাগ লজিক হ্যান্ডেল করুন
-        const deptVal = document.getElementById('inDept').value || "";
+        adjustDeptText();
+        updateStyling();
+        setTodayDateBengali();
+        save();
+    }
+
+    function adjustDeptText() {
+        const clsVal = document.getElementById('inCls').value || "";
         const mainContent = document.getElementById('mainContent');
         const firstParagraph = mainContent.getElementsByTagName('p')[0];
+        const deptSpan = document.getElementById('outDept');
         
-        // প্রথম লোডে মূল কন্টেন্ট সংরক্ষণ করুন (যদি এখনও না করা থাকে)
         if (!originalContentHTML) {
             originalContentHTML = firstParagraph.innerHTML;
         }
         
-        // বিভাগের মান চেক করুন
-        if (deptVal.trim() === "") {
-            // বিভাগ না থাকলে "বিভাগের" শব্দটা সরান (শুধু একবার)
-            if (hasDeptSection) {
-                let newHTML = originalContentHTML;
-                // "শিক্ষাবর্ষের" এর পরের " বিভাগের" অংশটি সরান
-                newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
-                firstParagraph.innerHTML = newHTML;
-                hasDeptSection = false;
-            }
-        } else {
-            // বিভাগ থাকলে মূল কন্টেন্ট ব্যবহার করুন (শুধু একবার)
-            if (!hasDeptSection) {
-                firstParagraph.innerHTML = originalContentHTML;
-                hasDeptSection = true;
-            }
+        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+            // "বিভাগের" শব্দটি সরান
+            let newHTML = originalContentHTML;
             
-            // বিভাগের মান আপডেট করুন
-            const deptSpan = document.getElementById('outDept');
+            // প্রথমে পুরো স্প্যানসহ অংশ সরান
+            newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
+            
+            // যদি কোনো কারণে স্প্যান ছাড়া "বিভাগের" থাকে, সেটাও সরান
+            newHTML = newHTML.replace(' বিভাগের', '');
+            
+            firstParagraph.innerHTML = newHTML;
+        } else {
+            // মূল কন্টেন্ট পুনরুদ্ধার
+            firstParagraph.innerHTML = originalContentHTML;
+            
+            // ডিপার্টমেন্টের মান সেট করুন
             if (deptSpan) {
-                deptSpan.textContent = deptVal;
+                const deptValue = document.getElementById('inDept').value || "..............";
+                deptSpan.innerText = deptValue;
             }
         }
+    }
 
-        // প্রধান কন্টেন্ট স্টাইলিং
+    function updateStyling() {
         const main = document.getElementById('mainContent');
         main.style.fontSize = document.getElementById('setFontSize').value + 'px';
-        main.style.lineHeight = document.getElementById('setLineHeight').value;
+        main.style.lineHeight = document.getElementById('lineGap').value;
+        
+        document.getElementById('headerLines').style.lineHeight = document.getElementById('headerLineGap').value;
         
         const indentVal = document.getElementById('setIndent').value + 'px';
         const paras = main.getElementsByTagName('p');
         for(let p of paras) { p.style.textIndent = indentVal; }
 
-        // স্বাক্ষর ফন্ট সাইজ
         document.getElementById('outSign').style.fontSize = document.getElementById('setSignSize').value + 'px';
 
-        // প্যাডিং
         const cert = document.getElementById('certArea');
         cert.style.padding = `${document.getElementById('mTop').value}px ${document.getElementById('mRight').value}px ${document.getElementById('mBottom').value}px ${document.getElementById('mLeft').value}px`;
         cert.classList.toggle('pad-mode-on', document.getElementById('padMode').checked);
         
-        // নতুন: ঠিকানা ও তারিখের ফন্ট সাইজ সিঙ্ক করুন
-        if (document.getElementById('addressSize')) {
-            document.getElementById('outAddr').style.fontSize = document.getElementById('addressSize').value + 'px';
-        }
-        if (document.getElementById('dateSize')) {
-            document.getElementById('outDate').style.fontSize = document.getElementById('dateSize').value + 'px';
+        document.getElementById('outAddr').style.fontSize = document.getElementById('addressSize').value + 'px';
+        document.getElementById('outDate').style.fontSize = document.getElementById('dateSize').value + 'px';
+        document.getElementById('outOfficeName').style.fontSize = document.getElementById('officeNameSize').value + 'px';
+        document.getElementById('titleText').style.fontSize = document.getElementById('titleSize').value + 'px';
+        
+        const fontFamily = document.getElementById('fontFamily');
+        if (fontFamily && fontFamily.value) {
+            cert.style.fontFamily = fontFamily.value;
         }
         
-        save();
+        updateHeaderMargin(document.getElementById('headerTopMargin').value);
+        updateMetaMargin(document.getElementById('metaTopMargin').value);
+        updateMetaFontSize(document.getElementById('metaFontSize').value);
+        updateBodyMargin(document.getElementById('bodyTopMargin').value);
     }
 
     function updateLogo(input) {
         if (input.files && input.files[0]) {
-            const r = new FileReader(); r.onload = (e) => { document.getElementById('certLogo').src = e.target.result; save(); }; r.readAsDataURL(input.files[0]);
+            const r = new FileReader(); 
+            r.onload = (e) => { 
+                document.getElementById('certLogo').src = e.target.result; 
+                save(); 
+            }; 
+            r.readAsDataURL(input.files[0]);
         }
     }
 
@@ -406,18 +627,23 @@
         if(!data) return alert("কোনো ডাটা নেই!");
         const a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([data], {type: "application/json"}));
-        a.download = `BCTI_Backup.json`; a.click();
+        a.download = `BCTI_Backup_${new Date().toISOString().slice(0,10)}.json`; 
+        a.click();
     }
 
     function importJSON(input) {
         const reader = new FileReader();
-        reader.onload = (e) => { localStorage.setItem(KEY, e.target.result); location.reload(); };
+        reader.onload = (e) => { 
+            localStorage.setItem(KEY, e.target.result); 
+            location.reload(); 
+        };
         reader.readAsText(input.files[0]);
     }
 
     function save() {
         const d = {};
-        const fields = ['Shop','Estd','Addr','Email','Web','Sign','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','setLineHeight','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','addressSize','dateSize','fontFamily'];
+        const fields = ['SignTitle', 'Shop','Estd','Addr','Email','Web','Dak','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','lineGap','headerLineGap','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','officeNameSize','addressSize','dateSize','titleSize','fontFamily','headerTopMargin','metaTopMargin','metaFontSize','bodyTopMargin'];
+        
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
             if(el) d[f] = el.value;
@@ -436,45 +662,114 @@
                 if(el && k !== 'logo' && k !== 'pad') el.value = d[k];
             });
             if(d.logo) document.getElementById('certLogo').src = d.logo;
-            document.getElementById('padMode').checked = d.pad;
+            document.getElementById('padMode').checked = d.pad || false;
             savedPass = d.setPass || "";
             
-            // প্রতিষ্ঠানের নামের সাইজ লোড করুন
             if(d.shopNameSize) {
                 document.getElementById('shopNameSize').value = d.shopNameSize;
                 updateShopSize(d.shopNameSize);
             }
-            
-            // ঠিকানার সাইজ লোড করুন
+            if(d.officeNameSize) {
+                document.getElementById('officeNameSize').value = d.officeNameSize;
+                updateOfficeNameSize(d.officeNameSize);
+            }
             if(d.addressSize) {
                 document.getElementById('addressSize').value = d.addressSize;
                 updateAddressSize(d.addressSize);
             }
-            
-            // তারিখের সাইজ লোড করুন
             if(d.dateSize) {
                 document.getElementById('dateSize').value = d.dateSize;
                 updateDateSize(d.dateSize);
             }
-            
-            // ফন্ট ফ্যামিলি লোড করুন - Hind Siliguri এখন কাজ করবে
+            if(d.titleSize) {
+                document.getElementById('titleSize').value = d.titleSize;
+                updateTitleSize(d.titleSize);
+            }
+            if(d.lineGap) {
+                document.getElementById('lineGap').value = d.lineGap;
+                updateLineGap(d.lineGap);
+            }
+            if(d.headerLineGap) {
+                document.getElementById('headerLineGap').value = d.headerLineGap;
+                updateHeaderLineGap(d.headerLineGap);
+            }
             if(d.fontFamily) {
                 document.getElementById('fontFamily').value = d.fontFamily;
                 updateFontFamily(d.fontFamily);
             }
+            
+            if(d.headerTopMargin) {
+                document.getElementById('headerTopMargin').value = d.headerTopMargin;
+                updateHeaderMargin(d.headerTopMargin);
+            }
+            if(d.metaTopMargin) {
+                document.getElementById('metaTopMargin').value = d.metaTopMargin;
+                updateMetaMargin(d.metaTopMargin);
+            }
+            if(d.metaFontSize) {
+                document.getElementById('metaFontSize').value = d.metaFontSize;
+                updateMetaFontSize(d.metaFontSize);
+            }
+            if(d.bodyTopMargin) {
+                document.getElementById('bodyTopMargin').value = d.bodyTopMargin;
+                updateBodyMargin(d.bodyTopMargin);
+            }
         }
+        
         setTodayDateBengali();
         updateMasterLists();
-        
-        // প্রথমবারের জন্য সিঙ্ক করুন
-        setTimeout(sync, 100);
     }
-</script>
 
-<!-- বাংলা ফন্টের জন্য Google Fonts লিংক -->
-<link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
-<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
-<link href="https://fonts.maateen.me/siyam-rupali/font.css" rel="stylesheet">
-<link href="https://fonts.maateen.me/nikosh/font.css" rel="stylesheet">
+    // ফোর্স আপডেট - প্রতি সেকেন্ডে
+    setInterval(function() {
+        const clsVal = document.getElementById('inCls').value || "";
+        const deptVal = document.getElementById('inDept').value || "";
+        
+        const outCls = document.getElementById('outCls');
+        if (outCls && outCls.innerText !== clsVal) {
+            outCls.innerText = clsVal || "..............";
+        }
+        
+        const outDept = document.getElementById('outDept');
+        if (outDept) {
+            if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+                outDept.innerText = "";
+            } else {
+                outDept.innerText = deptVal || "..............";
+            }
+        }
+        
+        // অতিরিক্ত চেক: যদি noDeptMode true হয় এবং outDept এ কিছু থাকে, তাহলে সেটা খালি করি
+        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+            const mainContent = document.getElementById('mainContent');
+            const firstParagraph = mainContent.getElementsByTagName('p')[0];
+            if (firstParagraph.innerHTML.includes('বিভাগের')) {
+                // পুনরায় adjust করি
+                let newHTML = originalContentHTML;
+                newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
+                newHTML = newHTML.replace(' বিভাগের', '');
+                firstParagraph.innerHTML = newHTML;
+            }
+        }
+        
+        const outUpz = document.getElementById('outUpz');
+        const upzVal = document.getElementById('inUpz').value;
+        if (outUpz && outUpz.innerText !== upzVal) {
+            outUpz.innerText = upzVal || "..............";
+        }
+        
+        const outDist = document.getElementById('outDist');
+        const distVal = document.getElementById('inDist').value;
+        if (outDist && outDist.innerText !== distVal) {
+            outDist.innerText = distVal || "..............";
+        }
+        
+        const outSession = document.getElementById('outSession');
+        const sessionVal = document.getElementById('inSession').value;
+        if (outSession && outSession.innerText !== sessionVal) {
+            outSession.innerText = sessionVal || "..............";
+        }
+    }, 500);
+</script>
 </body>
 </html>
