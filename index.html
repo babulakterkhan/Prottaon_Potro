@@ -116,15 +116,56 @@
         .btn-settings { background: #555; padding: 6px 12px; font-size: 12px; width: auto; }
         .btn-print { background: var(--primary); margin-top: 10px; font-size: 16px; }
 
-        @media print {
-            .input-panel { display: none !important; }
-            .preview-panel { padding: 0; background: white; }
-            .certificate { box-shadow: none; border: none; width: 210mm; height: 297mm; margin: 0; }
-            .data-text, .meta-value { border-bottom: none !important; }
-            .title span { background: var(--primary) !important; color: white !important; -webkit-print-color-adjust: exact; }
-            .header-text h1 { color: var(--primary) !important; -webkit-print-color-adjust: exact; }
-            @page { size: portrait; margin: 0; }
-        }
+       @media print {
+    .input-panel, .btn-print, .btn-settings {
+        display: none !important;
+    }
+    
+    .preview-panel {
+        padding: 0 !important;
+        background: white !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+    
+    .certificate {
+        box-shadow: none !important;
+        border: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        margin: 0 auto !important;
+        padding: 12mm 15mm !important; /* আপনার মার্জিন অনুযায়ী অ্যাডজাস্ট করুন */
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .data-text, .meta-value {
+        border-bottom: none !important;
+    }
+    
+    .title span {
+        background: var(--primary) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .header-text h1 {
+        color: var(--primary) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+}
     </style>
 </head>
 <body onload="autoLoad()">
