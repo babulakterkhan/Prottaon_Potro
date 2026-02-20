@@ -109,97 +109,21 @@
         .content p { margin: 0 0 15px 0; } 
         .data-text { font-weight: normal; color: #000; border-bottom: 1px dotted #999; }
 
-        .footer { 
-            margin-top: 80px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-end; 
-        }
-        
-        /* সই ও প্রতিষ্ঠানের তথ্যের স্টাইল */
-        .signature-block {
-            text-align: center;
-            width: 300px;
-        }
-       .signature-line {
-    display: none;  /* দাগ সম্পূর্ণ লুকাবে */
-}
-        .teacher-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #000;
-            margin: 5px 0 2px 0;
-        }
-        .teacher-title {
-            font-size: 16px;
-            font-weight: normal;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        .school-name-footer {
-            font-size: 15px;
-            font-weight: bold;
-            color: #000;
-            margin: 2px 0;
-        }
-        .school-address-footer {
-            font-size: 14px;
-            color: #000;
-            margin: 2px 0;
-        }
+        .footer { margin-top: 80px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .sign-box { text-align: center; width: 220px; border-top: none; padding-top: 5px; font-weight: bold; color: var(--primary); }
 
         .btn { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; width: 100%; }
         .btn-settings { background: #555; padding: 6px 12px; font-size: 12px; width: auto; }
         .btn-print { background: var(--primary); margin-top: 10px; font-size: 16px; }
 
         @media print {
-            .input-panel, .btn-print, .btn-settings {
-                display: none !important;
-            }
-            
-            .preview-panel {
-                padding: 0 !important;
-                background: white !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                height: 100vh !important;
-                overflow: hidden !important;
-            }
-            
-            .certificate {
-                box-shadow: none !important;
-                border: none !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                margin: 0 auto !important;
-                box-sizing: border-box !important;
-                overflow: hidden !important;
-                page-break-after: avoid !important;
-                page-break-inside: avoid !important;
-            }
-            
-            .data-text, .meta-value {
-                border-bottom: none !important;
-            }
-            
-            .title span {
-                background: var(--primary) !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            
-            .header-text h1 {
-                color: var(--primary) !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            
-            @page {
-                size: A4 portrait;
-                margin: 0;
-            }
+            .input-panel { display: none !important; }
+            .preview-panel { padding: 0; background: white; }
+            .certificate { box-shadow: none; border: none; width: 210mm; height: 297mm; margin: 0; }
+            .data-text, .meta-value { border-bottom: none !important; }
+            .title span { background: var(--primary) !important; color: white !important; -webkit-print-color-adjust: exact; }
+            .header-text h1 { color: var(--primary) !important; -webkit-print-color-adjust: exact; }
+            @page { size: portrait; margin: 0; }
         }
     </style>
 </head>
@@ -226,9 +150,6 @@
                 <option value="অধ্যক্ষ (ভারপ্রাপ্ত)">অধ্যক্ষ (ভারপ্রাপ্ত)</option>
             </select>
         </div>
-        
-        <!-- প্রধান শিক্ষকের নাম -->
-        <div class="input-group"><label>👤 প্রধান শিক্ষকের নাম</label><input type="text" id="inTeacherName" oninput="sync()" value=""></div>
         
         <div class="input-group"><label>প্রতিষ্ঠানের নাম</label><input type="text" id="inShop" oninput="sync()" value="মওলানা ছাইফ উদ্দিন এহিয়া উচ্চ বিদ্যালয়"></div>
         
@@ -466,25 +387,19 @@
                 <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
             </div>
             
-            <!-- আপডেটেড ফুটার - নতুন স্ট্রাকচার -->
             <div class="footer">
                 <div id="outDate">তারিখ: </div>
-                <div class="signature-block">
-                    <div class="signature-line"></div>
-                    <div class="teacher-name" id="outTeacherName">(শিক্ষকের নাম)</div>
-                    <div class="teacher-title" id="outTeacherTitle">প্রধান শিক্ষক</div>
-                    <div class="school-name-footer" id="outSchoolNameFooter">প্রতিষ্ঠানের নাম</div>
-                    <div class="school-address-footer" id="outSchoolAddressFooter">ঠিকানা</div>
-                </div>
+                <div id="outSign" class="sign-box">অধ্যক্ষ/পরিচালক</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const KEY = 'bcti_class_fix_v69';
+    const KEY = 'bcti_class_fix_v67';
     let savedPass = "";
     let originalContentHTML = "";
+    let noDeptMode = false;
 
     function toBengaliNumber(n) {
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
@@ -592,11 +507,7 @@
     function sync() {
         const signTitle = document.getElementById('inSignTitle').value || "প্রধান শিক্ষক";
         document.getElementById('outOfficeName').innerText = signTitle + "ের কার্যালয়";
-        document.getElementById('outTeacherTitle').innerText = signTitle;
-        
-        // শিক্ষকের নাম আপডেট
-        const teacherName = document.getElementById('inTeacherName').value;
-        document.getElementById('outTeacherName').innerText = teacherName ? teacherName : "(শিক্ষকের নাম)";
+        document.getElementById('outSign').innerText = signTitle;
         
         document.getElementById('outShop').innerText = document.getElementById('inShop').value || "প্রতিষ্ঠানের নাম";
         document.getElementById('outEstd').innerText = document.getElementById('inEstd').value || "";
@@ -613,18 +524,16 @@
         document.getElementById('outSession').innerText = document.getElementById('inSession').value || "..............";
         document.getElementById('outCls').innerText = document.getElementById('inCls').value || "..............";
         
-        // ফুটারের স্কুলের নাম ও ঠিকানা আপডেট
-        document.getElementById('outSchoolNameFooter').innerText = document.getElementById('inShop').value || "প্রতিষ্ঠানের নাম";
-        document.getElementById('outSchoolAddressFooter').innerText = document.getElementById('inAddr').value || "ঠিকানা";
-        
         // ৬ষ্ঠ-৮ম শ্রেণীতে বিভাগ দেখাবে না
         const clsVal = document.getElementById('inCls').value || "";
         const deptValue = document.getElementById('inDept').value || "";
         
         if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
             document.getElementById('outDept').innerText = "";
+            noDeptMode = true;
         } else {
             document.getElementById('outDept').innerText = deptValue || "..............";
+            noDeptMode = false;
         }
         
         document.getElementById('outRoll').innerText = document.getElementById('inRoll').value || ".........";
@@ -640,17 +549,32 @@
         const clsVal = document.getElementById('inCls').value || "";
         const mainContent = document.getElementById('mainContent');
         const firstParagraph = mainContent.getElementsByTagName('p')[0];
+        const deptSpan = document.getElementById('outDept');
         
         if (!originalContentHTML) {
             originalContentHTML = firstParagraph.innerHTML;
         }
         
         if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+            // "বিভাগের" শব্দটি সরান
             let newHTML = originalContentHTML;
+            
+            // প্রথমে পুরো স্প্যানসহ অংশ সরান
             newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
+            
+            // যদি কোনো কারণে স্প্যান ছাড়া "বিভাগের" থাকে, সেটাও সরান
+            newHTML = newHTML.replace(' বিভাগের', '');
+            
             firstParagraph.innerHTML = newHTML;
         } else {
+            // মূল কন্টেন্ট পুনরুদ্ধার
             firstParagraph.innerHTML = originalContentHTML;
+            
+            // ডিপার্টমেন্টের মান সেট করুন
+            if (deptSpan) {
+                const deptValue = document.getElementById('inDept').value || "..............";
+                deptSpan.innerText = deptValue;
+            }
         }
     }
 
@@ -665,6 +589,8 @@
         const paras = main.getElementsByTagName('p');
         for(let p of paras) { p.style.textIndent = indentVal; }
 
+        document.getElementById('outSign').style.fontSize = document.getElementById('setSignSize').value + 'px';
+
         const cert = document.getElementById('certArea');
         cert.style.padding = `${document.getElementById('mTop').value}px ${document.getElementById('mRight').value}px ${document.getElementById('mBottom').value}px ${document.getElementById('mLeft').value}px`;
         cert.classList.toggle('pad-mode-on', document.getElementById('padMode').checked);
@@ -673,13 +599,6 @@
         document.getElementById('outDate').style.fontSize = document.getElementById('dateSize').value + 'px';
         document.getElementById('outOfficeName').style.fontSize = document.getElementById('officeNameSize').value + 'px';
         document.getElementById('titleText').style.fontSize = document.getElementById('titleSize').value + 'px';
-        
-        // ফুটারের ফন্ট সাইজ
-        const signSize = parseInt(document.getElementById('setSignSize').value);
-        document.getElementById('outTeacherName').style.fontSize = signSize + 'px';
-        document.getElementById('outTeacherTitle').style.fontSize = (signSize - 2) + 'px';
-        document.getElementById('outSchoolNameFooter').style.fontSize = (signSize - 3) + 'px';
-        document.getElementById('outSchoolAddressFooter').style.fontSize = (signSize - 4) + 'px';
         
         const fontFamily = document.getElementById('fontFamily');
         if (fontFamily && fontFamily.value) {
@@ -723,7 +642,7 @@
 
     function save() {
         const d = {};
-        const fields = ['SignTitle', 'TeacherName', 'Shop','Estd','Addr','Email','Web','Dak','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','lineGap','headerLineGap','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','officeNameSize','addressSize','dateSize','titleSize','fontFamily','headerTopMargin','metaTopMargin','metaFontSize','bodyTopMargin'];
+        const fields = ['SignTitle', 'Shop','Estd','Addr','Email','Web','Dak','Name','Father','Mother','Vill','Upz','Dist','Session','Dept','Cls','Roll','DOB','setUpz','setDist','setSession','setDept','setCls','setFontSize','lineGap','headerLineGap','setIndent','setSignSize','mTop','mBottom','mLeft','mRight','setPass','shopNameSize','officeNameSize','addressSize','dateSize','titleSize','fontFamily','headerTopMargin','metaTopMargin','metaFontSize','bodyTopMargin'];
         
         fields.forEach(f => {
             const el = document.getElementById(f) || document.getElementById('in'+f);
@@ -820,6 +739,19 @@
             }
         }
         
+        // অতিরিক্ত চেক: যদি noDeptMode true হয় এবং outDept এ কিছু থাকে, তাহলে সেটা খালি করি
+        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+            const mainContent = document.getElementById('mainContent');
+            const firstParagraph = mainContent.getElementsByTagName('p')[0];
+            if (firstParagraph.innerHTML.includes('বিভাগের')) {
+                // পুনরায় adjust করি
+                let newHTML = originalContentHTML;
+                newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
+                newHTML = newHTML.replace(' বিভাগের', '');
+                firstParagraph.innerHTML = newHTML;
+            }
+        }
+        
         const outUpz = document.getElementById('outUpz');
         const upzVal = document.getElementById('inUpz').value;
         if (outUpz && outUpz.innerText !== upzVal) {
@@ -837,18 +769,6 @@
         if (outSession && outSession.innerText !== sessionVal) {
             outSession.innerText = sessionVal || "..............";
         }
-        
-        // শিক্ষকের নাম আপডেট
-        const teacherName = document.getElementById('inTeacherName').value;
-        const outTeacherName = document.getElementById('outTeacherName');
-        if (outTeacherName) {
-            outTeacherName.innerText = teacherName ? teacherName : "(শিক্ষকের naam)";
-        }
-        
-        // ফুটারের তথ্য আপডেট
-        document.getElementById('outTeacherTitle').innerText = document.getElementById('inSignTitle').value || "প্রধান শিক্ষক";
-        document.getElementById('outSchoolNameFooter').innerText = document.getElementById('inShop').value || "প্রতিষ্ঠানের নাম";
-        document.getElementById('outSchoolAddressFooter').innerText = document.getElementById('inAddr').value || "ঠিকানা";
     }, 500);
 </script>
 </body>
