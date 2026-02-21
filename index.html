@@ -44,7 +44,13 @@
             align-items: center; 
             border-bottom: 3px solid var(--primary); 
             margin-bottom: 30px; 
-            padding-bottom: 20px; 
+            padding-bottom: 20px;
+            margin-left: -70px;
+            margin-right: -70px;
+            padding-left: 30px;
+            padding-right: 30px;
+            width: auto;
+            box-sizing: border-box;
         }
         .logo-box { width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
         .logo-box img { max-width: 100%; max-height: 90px; object-fit: contain; }
@@ -127,7 +133,7 @@
             margin-bottom: 5px;
         }
         .teacher-name {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: bold;
             color: #000;
             margin: 5px 0 2px 0;
@@ -139,13 +145,13 @@
             margin-bottom: 10px;
         }
         .school-name-footer {
-            font-size: 15px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: normal;
             color: #000;
             margin: 2px 0;
         }
         .school-address-footer {
-            font-size: 15px;
+            font-size: 16px;
             color: #000;
             margin: 2px 0;
         }
@@ -376,7 +382,7 @@
         </div>
 
         <div class="section-title">📝 মাস্টার লিস্ট</div>
-        <div class="input-group"><label>শ্রেণী/ক্লাস (কমা দিয়ে)</label><input type="text" id="setCls" onblur="updateMasterLists()" value="৬ষ্ঠ,৭ম,৮ম,৯ম,১০ম"></div>
+        <div class="input-group"><label>শ্রেণী/ক্লাস (কমা দিয়ে) - শাখার জন্য - ব্যবহার করুন যেমন: ৬ষ্ঠ-ক,৬ষ্ঠ-খ,৭ম-ক,৭ম-খ</label><input type="text" id="setCls" onblur="updateMasterLists()" value="৬ষ্ঠ-ক,৬ষ্ঠ-খ,৭ম-ক,৭ম-খ,৮ম-ক,৮ম-খ,৯ম,১০ম"></div>
         <div class="input-group"><label>বিভাগ (কমা দিয়ে)</label><input type="text" id="setDept" onblur="updateMasterLists()" value="বিজ্ঞান,মানবিক,ব্যবসায় শিক্ষা"></div>
         <div class="input-group"><label>সেশন (কমা দিয়ে)</label><input type="text" id="setSession" onblur="updateMasterLists()" value="২০২৪,২০২৫,২০২৬"></div>
         <div class="input-group"><label>উপজেলা (কমা দিয়ে)</label><input type="text" id="setUpz" onblur="updateMasterLists()" value="শাহজাদপুর"></div>
@@ -463,7 +469,7 @@
             <div class="title"><span id="titleText">প্রত্যয়ন পত্র</span></div>
             
             <div id="mainContent" class="content">
-                <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের <span id="outCls" class="data-text">..............</span> শ্রেণীর একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
+                <p>এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, <span id="outName" class="data-text">..............</span>, পিতা- <span id="outFather" class="data-text">..............</span>, মাতা- <span id="outMother" class="data-text">..............</span>, গ্রাম- <span id="outVill" class="data-text">..............</span>, ডাকঘর- শাহজাদপুর, উপজেলা- <span id="outUpz" class="data-text">..............</span>, জেলা- <span id="outDist" class="data-text">..............</span>। সে এই প্রতিষ্ঠানের <span id="outSession" class="data-text">..............</span> শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> <span id="outCls" class="data-text">..............</span> একজন নিয়মিত শিক্ষার্থী। তার ক্লাস রোল- <span id="outRoll" class="data-text">.........</span>। জন্মতারিখ- <span id="outDOB" class="data-text">..................</span> খ্রি.। আমার জানামতে তার স্বভাব চরিত্র ভালো এবং সে কখনও প্রতিষ্ঠানের শৃঙ্খলা বিরোধী কার্যক্রমে অংশগ্রহণ করেনি।</p>
                 
                 <p>আমি তার জীবনের সর্বাঙ্গীন উন্নতি ও মঙ্গল কামনা করি।</p>
             </div>
@@ -613,62 +619,43 @@
         document.getElementById('outUpz').innerText = document.getElementById('inUpz').value || "..............";
         document.getElementById('outDist').innerText = document.getElementById('inDist').value || "..............";
         document.getElementById('outSession').innerText = document.getElementById('inSession').value || "..............";
-        document.getElementById('outCls').innerText = document.getElementById('inCls').value || "..............";
         
         // ফুটারের স্কুলের নাম ও ঠিকানা আপডেট
         document.getElementById('outSchoolNameFooter').innerText = document.getElementById('inShop').value || "প্রতিষ্ঠানের নাম";
         document.getElementById('outSchoolAddressFooter').innerText = document.getElementById('inAddr').value || "ঠিকানা";
         
-        // ৬ষ্ঠ-৮ম শ্রেণীতে বিভাগ দেখাবে না - কিন্তু "বিভাগের" শব্দটিও সরাতে হবে
+        // ক্লাস এবং শাখা হ্যান্ডলিং
         const clsVal = document.getElementById('inCls').value || "";
         const deptValue = document.getElementById('inDept').value || "";
         
-        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
+        let className = clsVal;
+        let section = "";
+        
+        if (clsVal.includes('-')) {
+            const parts = clsVal.split('-');
+            className = parts[0];
+            section = parts[1];
+        }
+        
+        // ৬ষ্ঠ-৮ম শ্রেণীতে বিভাগ দেখাবে না এবং "শ্রেণীর" শব্দটিও থাকবে না
+        if (className.includes('৬ষ্ঠ') || className.includes('৭ম') || className.includes('৮ম')) {
             document.getElementById('outDept').innerText = "";
+            if (section) {
+                document.getElementById('outCls').innerText = className + " শ্রেণী " + section + " শাখার";
+            } else {
+                document.getElementById('outCls').innerText = className + " শ্রেণীর";
+            }
         } else {
             document.getElementById('outDept').innerText = deptValue || "..............";
+            document.getElementById('outCls').innerText = className + " শ্রেণীর";
         }
         
         document.getElementById('outRoll').innerText = document.getElementById('inRoll').value || ".........";
         document.getElementById('outDOB').innerText = document.getElementById('inDOB').value || "..................";
 
-        adjustDeptText();
         updateStyling();
         setTodayDateBengali();
         save();
-    }
-
-    function adjustDeptText() {
-        const clsVal = document.getElementById('inCls').value || "";
-        const mainContent = document.getElementById('mainContent');
-        const firstParagraph = mainContent.getElementsByTagName('p')[0];
-        const deptSpan = document.getElementById('outDept');
-        
-        if (!originalContentHTML) {
-            originalContentHTML = firstParagraph.innerHTML;
-        }
-        
-        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
-            // "বিভাগের" শব্দটি সহ সম্পূর্ণ অংশ সরান
-            let newHTML = originalContentHTML;
-            
-            // প্রথমে স্প্যান সহ অংশ সরান
-            newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
-            
-            // যদি কোনো কারণে স্প্যান ছাড়া "বিভাগের" থাকে, সেটাও সরান
-            newHTML = newHTML.replace(' বিভাগের', '');
-            
-            firstParagraph.innerHTML = newHTML;
-        } else {
-            // মূল কন্টেন্ট পুনরুদ্ধার
-            firstParagraph.innerHTML = originalContentHTML;
-            
-            // ডিপার্টমেন্টের মান সেট করুন
-            if (deptSpan) {
-                const deptValue = document.getElementById('inDept').value || "..............";
-                deptSpan.innerText = deptValue;
-            }
-        }
     }
 
     function updateStyling() {
@@ -823,30 +810,30 @@
         const clsVal = document.getElementById('inCls').value || "";
         const deptVal = document.getElementById('inDept').value || "";
         
+        let className = clsVal;
+        let section = "";
+        
+        if (clsVal.includes('-')) {
+            const parts = clsVal.split('-');
+            className = parts[0];
+            section = parts[1];
+        }
+        
         const outCls = document.getElementById('outCls');
-        if (outCls && outCls.innerText !== clsVal) {
-            outCls.innerText = clsVal || "..............";
-        }
-        
         const outDept = document.getElementById('outDept');
-        if (outDept) {
-            if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
-                outDept.innerText = "";
-            } else {
-                outDept.innerText = deptVal || "..............";
-            }
-        }
         
-        // অতিরিক্ত চেক: যদি ৬ষ্ঠ-৮ম শ্রেণী হয় এবং "বিভাগের" শব্দ থাকে, তাহলে সরিয়ে ফেলি
-        if (clsVal.includes('৬ষ্ঠ') || clsVal.includes('৭ম') || clsVal.includes('৮ম')) {
-            const mainContent = document.getElementById('mainContent');
-            const firstParagraph = mainContent.getElementsByTagName('p')[0];
-            if (firstParagraph.innerHTML.includes('বিভাগের')) {
-                let newHTML = originalContentHTML;
-                newHTML = newHTML.replace(' শিক্ষাবর্ষের <span id="outDept" class="data-text">..............</span> বিভাগের', ' শিক্ষাবর্ষের');
-                newHTML = newHTML.replace(' বিভাগের', '');
-                firstParagraph.innerHTML = newHTML;
+        if (className.includes('৬ষ্ঠ') || className.includes('৭ম') || className.includes('৮ম')) {
+            if (outDept) outDept.innerText = "";
+            if (outCls) {
+                if (section) {
+                    outCls.innerText = className + " শ্রেণী " + section + " শাখার";
+                } else {
+                    outCls.innerText = className + " শ্রেণীর";
+                }
             }
+        } else {
+            if (outDept) outDept.innerText = deptVal || "..............";
+            if (outCls) outCls.innerText = className + " শ্রেণীর";
         }
         
         const outUpz = document.getElementById('outUpz');
